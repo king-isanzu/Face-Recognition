@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block content %}
+<h2 class="mb-3">Attendance Records</h2><div class="card p-3"><div class="table-responsive"><table class="table">
+<thead><tr><th>Reg No</th><th>Name</th><th>Date</th><th>Time</th><th>Status</th></tr></thead><tbody>
+{% for r in rows %}<tr><td>{{r.reg_no}}</td><td>{{r.name}}</td><td>{{r.date}}</td><td>{{r.time}}</td><td><span class="badge bg-success">{{r.status}}</span></td></tr>
+{% else %}<tr><td colspan="5" class="text-center">No attendance records.</td></tr>{% endfor %}
+</tbody></table></div></div>{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block content %}
+<h2>Scan Attendance</h2><p class="text-muted">Allow camera access, then face the camera.</p>
+<div class="row"><div class="col-lg-8"><div class="card p-3">
+<video id="video" autoplay playsinline style="width:100%;border-radius:12px;background:#111"></video>
+<canvas id="canvas" hidden></canvas><button id="start" class="btn btn-primary mt-3">Start Camera</button>
+<button id="scan" class="btn btn-dark mt-3" disabled>Recognize & Mark Attendance</button></div></div>
+<div class="col-lg-4"><div class="card p-4"><h5>Result</h5><div id="result">Waiting...</div></div></div></div>
+<script>
+const video=document.getElementById('video'), canvas=document.getElementById('canvas'), start=document.getElementById('start'), scan=document.getElementById('scan'), result=document.getElementById('result');
+start.onclick=async()=>{try{const stream=await navigator.mediaDevices.getUserMedia({video:true});video.srcObject=stream;scan.disabled=false;result.innerHTML='<span class="text-success">Camera ready.</span>'}catch(e){result.innerHTML='<span class="text-danger">Camera permission/error: '+e.message+'</span>'}};
+scan.onclick=async()=>{canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);result.textContent='Recognizing...';const image=canvas.toDataURL('image/jpeg',0.85);
+try{const r=await fetch('/api/recognize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image})});const d=await r.json();
+if(d.matched) result.innerHTML='<h4>'+d.name+'</h4><p>'+d.reg_no+'</p><div class="alert alert-success">'+d.status+'</div>';else result.innerHTML='<div class="alert alert-warning">'+(d.message||'Not recognized')+'</div>';
+}catch(e){result.innerHTML='<div class="alert alert-danger">'+e.message+'</div>'}};
+</script>{% endblock %}

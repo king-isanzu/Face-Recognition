@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+<div class="row g-4"><div class="col-md-4"><div class="card p-4"><h6>Registered Students</h6><h1>{{students}}</h1></div></div>
+<div class="col-md-4"><div class="card p-4"><h6>Today's Attendance</h6><h1>{{today}}</h1></div></div>
+<div class="col-md-4"><div class="card p-4"><h6>System</h6><h5 class="text-success">● Online</h5></div></div></div>
+<div class="card p-4 mt-4"><h4>Quick actions</h4><a class="btn btn-primary me-2" href="/students/add">Register Student</a><a class="btn btn-dark" href="/scan">Scan Attendance</a></div>
+{% endblock %}

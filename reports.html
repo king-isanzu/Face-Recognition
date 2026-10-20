@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}
+<h2>Attendance Report</h2><div class="card p-3 mt-3"><table class="table"><thead><tr><th>Reg No</th><th>Name</th><th>Days Present</th></tr></thead><tbody>
+{% for r in rows %}<tr><td>{{r.reg_no}}</td><td>{{r.name}}</td><td>{{r.days_present}}</td></tr>{% endfor %}
+</tbody></table></div>{% endblock %}

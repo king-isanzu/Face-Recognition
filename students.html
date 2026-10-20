@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3"><h2>Students</h2><a class="btn btn-primary" href="/students/add">+ Register</a></div>
+<div class="card p-3"><div class="table-responsive"><table class="table align-middle"><thead><tr><th>#</th><th>Reg No</th><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr></thead><tbody>
+{% for s in students %}<tr><td>{{loop.index}}</td><td>{{s.reg_no}}</td><td>{{s.name}}</td><td>{{s.email or '-'}}</td><td>{{s.phone or '-'}}</td><td>
+<form method="post" action="/students/delete/{{s.id}}" onsubmit="return confirm('Delete this student?')"><button class="btn btn-sm btn-outline-danger">Delete</button></form>
+</td></tr>{% else %}<tr><td colspan="6" class="text-center">No students yet.</td></tr>{% endfor %}
+</tbody></table></div></div>{% endblock %}
